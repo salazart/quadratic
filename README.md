@@ -1,0 +1,1 @@
+Quadratic is java web application. It helps users compute a quadratic equation.
