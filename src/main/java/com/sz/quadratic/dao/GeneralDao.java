@@ -24,32 +24,26 @@ public class GeneralDao<T extends IEntity> implements IDao<T>{
 				.getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 	
-	private Session getSession(){
-		try {
-			return sessionFactory.getCurrentSession();
-		} catch (Exception e) {
-			return sessionFactory.openSession();
-		}
-	}
+//	private Session getSession(){
+//		try {
+//			return sessionFactory.getCurrentSession();
+//		} catch (Exception e) {
+//			return sessionFactory.openSession();
+//		}
+//	}
 	
-	public T get(int id){
-		try {
-			return getSession().get(clazz, id);
-		} finally {
-			getSession().close();
-		}
-	}
+//	public T get(int id){
+//		try {
+//			return getSession().get(clazz, id);
+//		} finally {
+//			getSession().close();
+//		}
+//	}
 	
+
 	public void save(T entity) {
-		try {
-			getSession().beginTransaction();
-			getSession().persist(entity);
-			getSession().getTransaction().commit();
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		} finally {
-			getSession().close();
-		}
+			 Session session = sessionFactory.getCurrentSession();
+			 session.persist(entity);
 	}
 //
 //	public void update(T entity){
@@ -63,7 +57,10 @@ public class GeneralDao<T extends IEntity> implements IDao<T>{
 	
 	@SuppressWarnings("unchecked")
 	public List<T> getAll() {
-		return getSession().createQuery("from " + clazz.getName())
+//		return getSession().createQuery("from " + clazz.getName())
+//				.getResultList();
+		Session session = sessionFactory.getCurrentSession();
+		return session.createQuery("from " + clazz.getName())
 				.getResultList();
 	}
 
@@ -75,8 +72,15 @@ public class GeneralDao<T extends IEntity> implements IDao<T>{
 
 	@Override
 	public void delete(int id) {
+		Session session = sessionFactory.getCurrentSession();
+		T entity = session.getReference(clazz, id);
+		session.remove(entity);
+	}
+
+	@Override
+	public T get(int id) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 }

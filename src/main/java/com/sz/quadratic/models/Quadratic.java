@@ -47,7 +47,7 @@ public class Quadratic implements IEntity{
 		this.result1 = result1;
 		this.result2 = result2;
 	}
-	
+
 	public String toString(){
 		return a + " " + b + " " + c + " " + result1 + " " + result2;
  	}
@@ -79,15 +79,19 @@ public class Quadratic implements IEntity{
 	public void setC(double c) {
 		this.c = c;
 	}
+
 	public double getResult1() {
 		return result1;
 	}
+
 	public void setResult1(double result1) {
 		this.result1 = result1;
 	}
+
 	public double getResult2() {
 		return result2;
 	}
+
 	public void setResult2(double result2) {
 		this.result2 = result2;
 	}

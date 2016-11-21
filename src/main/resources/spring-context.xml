@@ -11,6 +11,12 @@
 ">
 
 	<context:annotation-config />
+	
+	<bean id="quadratic1" class="com.sz.quadratic.models.Quadratic">
+		<constructor-arg value="5"/>
+		<constructor-arg value="9"/>
+		<constructor-arg value="3"/> 
+	</bean>
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
@@ -33,4 +39,14 @@
 			</map>
 		</property>
 	</bean>
+	
+	<bean id="quadraticDaoImpl" class="com.sz.quadratic.dao.impl.QuadraticDaoImpl"/>
+	
+	<bean id="transactionManager"
+            class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <tx:annotation-driven/>
+	
 </beans>

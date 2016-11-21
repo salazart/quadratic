@@ -4,7 +4,6 @@ import com.sz.quadratic.exception.QuadraticException;
 import com.sz.quadratic.models.Quadratic;
 
 public class QuadraticService {
-	private static final String IS_NUMBER_EXP = "-?\\d+(\\.\\d+)?";
 	private double a;
 	private double b;
 	private double c;
@@ -25,6 +24,12 @@ public class QuadraticService {
 		}
 	}
 	
+	public QuadraticService(Quadratic quadratic){
+		this.a = quadratic.getA();
+		this.b = quadratic.getB();
+		this.c = quadratic.getC();
+	}
+	
 	public boolean isResult(){
 		return getDiscriminant() >= 0;
 	}
@@ -33,12 +38,12 @@ public class QuadraticService {
 		return Math.pow(b, 2) - 4 * a * c;
 	}
 	
-	public Quadratic getResult(){
+	public Quadratic getQuadratic(){
 		return new Quadratic(a, b, c, getFirstResult(), getSecondResult());
 	}
 	
 	public double getFirstResult(){
-		return (-b + Math.sqrt(getDiscriminant())) / (2 * a);
+		return (-b - Math.sqrt(getDiscriminant())) / (2 * a);
 	}
 	
 	public double getSecondResult(){
