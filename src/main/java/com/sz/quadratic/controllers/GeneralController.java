@@ -12,7 +12,7 @@ import com.sz.quadratic.models.Quadratic;
 import com.sz.quadratic.service.QuadraticService;
 
 @Controller
-public class GenaralController {
+public class GeneralController {
 	
 	@Autowired
 	private IQuadraticDao quadraticDao;

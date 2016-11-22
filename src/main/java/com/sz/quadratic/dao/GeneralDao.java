@@ -6,11 +6,13 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sz.quadratic.interfaces.IDao;
 import com.sz.quadratic.interfaces.IEntity;
 
+@Repository
 @Transactional
 public class GeneralDao<T extends IEntity> implements IDao<T>{
 
