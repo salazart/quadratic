@@ -1,11 +1,10 @@
 package com.sz.quadratic.dao;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,14 +15,17 @@ import com.sz.quadratic.interfaces.IEntity;
 @Transactional
 public class GeneralDao<T extends IEntity> implements IDao<T>{
 
-	@Autowired
-	private SessionFactory sessionFactory;
+//	@Autowired
+//	private SessionFactory sessionFactory;
+	
+	@PersistenceContext
+	private EntityManager em;
 	
 	protected Class<? extends T> clazz;
 	
 	public GeneralDao() {
-		this.clazz = (Class<T>) ((ParameterizedType) getClass()
-				.getGenericSuperclass()).getActualTypeArguments()[0];
+//		this.clazz = (Class<T>) ((ParameterizedType) getClass()
+//				.getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 	
 //	private Session getSession(){
@@ -44,8 +46,9 @@ public class GeneralDao<T extends IEntity> implements IDao<T>{
 	
 
 	public void save(T entity) {
-			 Session session = sessionFactory.getCurrentSession();
-			 session.persist(entity);
+//			 Session session = sessionFactory.getCurrentSession();
+//			 session.persist(entity);
+		em.persist(entity);
 	}
 //
 //	public void update(T entity){
@@ -61,8 +64,8 @@ public class GeneralDao<T extends IEntity> implements IDao<T>{
 	public List<T> getAll() {
 //		return getSession().createQuery("from " + clazz.getName())
 //				.getResultList();
-		Session session = sessionFactory.getCurrentSession();
-		return session.createQuery("from " + clazz.getName())
+//		Session session = sessionFactory.getCurrentSession();
+		return em.createQuery("from " + clazz.getName())
 				.getResultList();
 	}
 
@@ -74,9 +77,9 @@ public class GeneralDao<T extends IEntity> implements IDao<T>{
 
 	@Override
 	public void delete(int id) {
-		Session session = sessionFactory.getCurrentSession();
-		T entity = session.getReference(clazz, id);
-		session.remove(entity);
+//		Session session = sessionFactory.getCurrentSession();
+		T entity = em.getReference(clazz, id);
+		em.remove(entity);
 	}
 
 	@Override

@@ -12,6 +12,4 @@
 
 	<context:annotation-config />
 	
-    <tx:annotation-driven/>
-	
 </beans>
